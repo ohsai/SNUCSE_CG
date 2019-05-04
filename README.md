@@ -1,99 +1,99 @@
-# SNUCSE_CG
-## Computer graphics Assignment 1
+## How to compile
 
-### Assignment :
+### Environment : 
 
-On OpenGL,
+Ubuntu 16.04 LTS
 
-Create a hierarchical model using matrix stacks
+gcc 5.4.0
 
-The model should consists of three-dimensional primitives such as polygons, 
+Cmake 3.5.1
 
-boxes, cylinders, spheres and quadrics.
+freeglut (version same as tutorial)
 
-The model should have a hierarchy of at least three levels
+1. Download 2014-13485.tar.gz
 
-Animate the model to show the hierarchical structure
+2. Type
 
-Eg) a car driving with rotating wheels
+tar -xvzf 2014-13485.tar.gz 
 
-Eg) a runner with arms and legs swing
+in directory where nothing other than 2014-13485.tar.gz is placed.
 
-Make it aesthetically pleasing or technically illustrative
+3. Type 
 
-### How to compile :
+cd ./mathclass/mathclass
 
-g++ -o hierarchical_model hierarchical_model.cpp -lm -lGL -lGLU -lglut
+mkdir build
 
-### Theme : 
+cmake ..
 
-Thief and Cop
+make -j4
 
-### Hierarchical Structure :
+and let libmathclass.a be compiled.
 
-Thief
+4. Return to directory where 2014-13485.tar.gz is placed and type
 
-1.	Body
+make clean
 
-1.1.	Right Thigh
+make
 
-1.1.1.	Right Calf
+then ./hw3 is compiled.
 
-1.1.1.1.	Right foot
+## What I have implemented
 
-1.2.	Left Thigh
+1. Parser which reads text file with standard format and loads control point data of cross sections and transformation data of cross sections.
 
-1.2.1.	Left Calf
+2. Decide whether to draw closed curve cross section as B-spline or Catmull-Rom spline.
 
-1.2.1.1.	Left foot
+3. Read scaling factor, axis-angle, translation data and convert these to scalar, unit quaternion, 3d vector data and perform bezier spline interpolation to these for smooth transformation.
 
-1.3.	Right upper arm
+4. Decide points based on interpolated control point and transformation data processed above, and draw polygonal mesh based on these points. Polygonal mesh was drawn in wireframe.
 
-1.3.1.	Right lower arm
+5. Virtual trackball to rotate by mouse, translate by arrow keys, zoom in and out by mouse wheel is attached. Can see the whole scene by pressing enter key.
 
-1.3.1.1.	Right hand
+6.  Created bolt model by 113 cross sections of swept surfaces.
 
-1.4.	Left upper arm
+## How I have implemented
 
-1.4.1.	Left lower arm
+1. Parser was implemented in parse.h and parse.cpp. I used list type of standard c++11 to store data. I assumed standard format of text file is solid, so I extracted data by ifstream and >> operator sequentially.
 
-1.4.1.1.	Left hand
+2. In B-spline, I assumed cross section control points to be more than 4 points, since I was trying to use cubic B-spline. I copied three control points from the front and appended at the back, since it was closed curve I thought it was alright. In Catmull-Rom spline, I assumed cross section control points to be more than 2 points. I copied two control points from the front and appended at the back, and a control point from the back and appended at the front, since Catmull-Rom spline needs average difference of previous and next point to calculate tangent value of current point, and the last control point and first control point must also be interpolated to form a closed curve.  In both cases I used matrix multiplication to get closed curve points.
 
-1.5.	Neck
+3. scale factor, axis-angle, translation data are each translated to m_real, quaternion, vector of math library. Using quaternion slerp and vector interpolation I used De casteljiau algorithm to implement bezier spline interpolation for the data.
 
-1.5.1.	Head
+4. I first decided closed curve points on xz plane using cross section control points. Then I transformed it according to transformation data. After that I drawed points using glvertex3f. I used triangle strip for drawing a mesh, so I needed previous closed curve points and current closed curve points to draw a part of surface.
 
-Cop
+5. I loaded the exact virtual trackball used in homework 2, but only changed lookat point, camera position and lookup vector at the start of the program, and when I pressed enter.(show all command)
 
-2.	Body
+6. I first drew upward spiral of circle for helix of bolt, and drew two cylinders for the top and body of the bolt.
 
-2.1.	Right Thigh
+## What I have not implemented
 
-2.1.1.	Right Calf
+1. Polygonal mesh was drawn in wireframe, so we cannot visualize the model as solid or textured surface.
 
-2.1.1.1.	Right foot
+2. Implementation of vector, quaternion, m_real is from mathclass library, not mine.
 
-2.2.	Left Thigh
 
-2.2.1.	Left Calf
+## How to use it
 
-2.2.1.1.	Left foot
+Type in terminal
 
-2.3.	Right upper arm
+./hw3 (text file for swept surface)
 
-2.3.1.	Right lower arm
+to load text file and visualize swept surface model.
 
-2.3.1.1.	Right hand
 
-2.4.	Left upper arm
+Type in terminal 
 
-2.4.1.	Left lower arm
+./hw3 bolt.txt
 
-2.4.1.1.	Left hand
+to see bolt model created by swept surface.
 
-2.4.1.1.1.	Truncheon (Rod)
+Press Enter to see the whole scene of the model. (show all)
 
-2.5.	Neck
+Press right or left button and drag the mouse to rotate the model.
 
-2.5.1.	Head
+Roll the mouse wheel to zoom in or out the scene.
+
+Press up or down arrow key to dolly in or out.
+
 
