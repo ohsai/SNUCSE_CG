@@ -1,7 +1,7 @@
 # SNUCSE_CG
 ## Computer graphics Assignment 4
 
-### How to compile
+## How to compile
 
 터미널 상에서 cd ./mathclass/mathclass/build 명령어를 입력하여 해당 폴더에 들어갑니다.
 
@@ -15,7 +15,7 @@
 
 터미널 상에서 해당 폴더에서 ./hw4 bolt3d.txt 명령어를 입력하여 프로그램을 실행합니다.
 
-### What have I done
+## What have I done
 
 Translucent한 Cube의 여섯 면 각각에 다른 6개의 Material 을 표현하도록 했으며, opaque한 sweep surface와 겹치도록 만들었습니다.
 
@@ -29,15 +29,15 @@ Virtual trackball 을 적용하여 마우스, 방향키, 마우스 휠 키로 조종할 수 있도록 만
 
 임의의 standard format sweep surface data 를 넣으면, 올바른 방향으로 cross section 들이 연결된다는 가정 하에, opaque 물체를 rendering할 수 있으며 이 물체도 depth sorting 됩니다.
 
-### What I haven't done
+## What I haven't done
 
 Depth sorting으로 만들어진 BSP tree를 rendering하면 translucent한 물체와 겹쳐질 때 올바르게 rendering되지 않습니다.
 
 Complex translucent object를 구현하지 못했습니다.
 
-### How I have implemented
+## How I have implemented
 
-Depth Ordering Algorithm
+### Depth Ordering Algorithm
 
 제 모델에는 BSP tree algorithm 을 이용하여 depth sorting 을 구현하였습니다. 그러나 구현에 문제가 있는 것인지 결과가 제대로 나오지 않았습니다. 
 
@@ -64,6 +64,7 @@ edge에서만 만나는 경우 : 이 경우 평면과 polygon은 polygon의 두 edge에서 만나게 �
 
 전혀 만나지 않는 경우 : 해당 polygon은 평면의 front에 있는지 back에 있는지 결정할 수 있습니다.
 
+###  BSP tree algorithm
 제 BSP tree 생성 알고리즘은 다음과 같습니다. Tree node 와 polygon list 가 주어졌을 때:
 Polygon list 에서 polygon을 고릅니다. 해당 polygon의 normal을 구합니다.
 
@@ -99,7 +100,7 @@ Node의 right node 에 대해 재귀적으로 rendering합니다.
 
 Node의 left node에 대해 재귀적으로 rendering합니다.
 
-Material Properites of each surface
+### Material Properites of each surface
 
 제 모델에는 Ruby, Gold, Silver, Bronze, Pearl, Jade, Plastic 총 일곱 가지 물질을 구현했습니다. 
 
@@ -115,7 +116,7 @@ Jade : 푸른 빛이 도는 초록색을 만들기 위해 ambient light coefficient에서 blue 쪽
 
 Plastic : 플라스틱의 경우 금속과 같은 광택을 일으키는 정반사가 어울리지 않아 specular light coefficient를 낮췄습니다. 그리고 질감이 난반사에 의해 나온다고 생각되어 diffuse coefficient 를 ambient coefficient보다 높였습니다.
 
-Light Configuration
+### Light Configuration
 
 (10.0 , 0.0 , 0.0) , (0.0 , 10.0 , 0.0) , (0.0 , 0.0 , 10.0) 즉 x, y, z 축 각각의 10.0만큼 떨어진 위치에 점광원을 만들었습니다. 세 점광원 모두 Specular 한 빛의 세기는 RGB alpha 모두에 1.0f 값을 주었습니다. Specular 의 세기를 높여서 빛의 위치에 의한 효과를 보고 싶었습니다.
 
