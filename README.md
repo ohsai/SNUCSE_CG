@@ -5,15 +5,13 @@
 
 Ubuntu 16.04 LTS 환경입니다.
 
-1. 압축파일 2014-13485.tar.gz 가 들어있는 폴더에서 tar -xvf ./2014-13485.tar.gz 를 입력하여 압축을 해당 폴더에 풉니다. 파일이 매우 많으므로 새 폴더를 만들어 푸는 것을 권장합니다.
-
 2. Freetype2 library를 설치합니다.  terminal에서 sudo apt-get install libfreetype6-dev 를 입력하여 (루트 권한을 가져야함) 설치합니다.
 
 3. Cimg library 를 설치합니다. terminal에서 sudo apt-get install cimg-dev 를 입력하여 (루트 권한을 가져야함) 설치합니다.
 
-4. terminal 상에서 압축을 푼 폴더에 들어간 후 make 를 입력하여 ./hw5_201413485 라는 executable 이 생성되도록 합니다.
+4. terminal 상에서 압축을 푼 폴더에 들어간 후 make 를 입력하여 ./hw5라는 executable 이 생성되도록 합니다.
 
-5. terminal 상의 해당 폴더에서 ./hw5_201413485 ./Glock.stl 를 입력하여 executable을 실행합니다. ./Glock.stl은 해당 geometry file을 import하겠다는 뜻입니다.
+5. terminal 상의 해당 폴더에서 ./hw5 ./Glock.stl 를 입력하여 executable을 실행합니다. ./Glock.stl은 해당 geometry file을 import하겠다는 뜻입니다.
 
 6. 실행이 끝나면 해당 폴더의 ./result.png 파일에 레이트레이싱 결과 이미지가 들어있습니다. Output image의 이름과 경로는 config.h 에서 원하는 이름과 경로로 바꿀 수 있습니다.
 

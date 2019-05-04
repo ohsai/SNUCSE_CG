@@ -4,10 +4,10 @@ LDFLAGS = -O2 -L/usr/X11R6/lib -lm -lpthread -lX11
 PNGWRITER = -lPNGwriter -lz -lpng -lfreetype
 #-L/home/shako/pngwriter/pngwriter -lPNGwriter -lz -lpng -lfreetype
 
-all : hw5_201413485
+all : hw5
 
 clean :
-	rm -f *.o hw5_201413485
+	rm -f *.o hw5
 
 color.o: color.cpp color.h
 	$(CC) $(CFLAGS) -c color.cpp
@@ -51,8 +51,8 @@ camera.o: camera.cpp camera.h
 stl.o : stl.cpp stl.h
 	$(CC) $(CFLAGS) -c stl.cpp
 
-hw5_201413485.o: hw5_201413485.cpp
-	$(CC) $(CFLAGS) -c hw5_201413485.cpp
+hw5.o : hw5.cpp
+	$(CC) $(CFLAGS) -c hw5.cpp
 
-hw5_201413485: color.o vector.o phong.o ray.o surface.o light.o polygon.o sphere.o texture.o scene.o ray_tracer.o camera.o window.o stl.o hw5_201413485.o 
-	$(CC) $(CFLAGS) color.o vector.o surface.o texture.o phong.o ray.o light.o polygon.o sphere.o ray_tracer.o scene.o camera.o window.o stl.o hw5_201413485.o -o hw5_201413485 $(LDFLAGS) $(PNGWRITER)
+hw5 : color.o vector.o phong.o ray.o surface.o light.o polygon.o sphere.o texture.o scene.o ray_tracer.o camera.o window.o stl.o hw5.o 
+	$(CC) $(CFLAGS) color.o vector.o surface.o texture.o phong.o ray.o light.o polygon.o sphere.o ray_tracer.o scene.o camera.o window.o stl.o hw5.o -o hw5 $(LDFLAGS) $(PNGWRITER)
